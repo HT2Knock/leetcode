@@ -1,3 +1,5 @@
+package leetcode
+
 // @leet start
 import "slices"
 
