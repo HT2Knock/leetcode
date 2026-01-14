@@ -1,0 +1,20 @@
+package leetcode
+
+// @leet start
+func canPlaceFlowers(flowerbed []int, n int) bool {
+	for i := 0; i < len(flowerbed) && n > 0; {
+		if flowerbed[i] == 1 {
+			i += 2
+		} else if i == len(flowerbed)-1 || flowerbed[i+1] == 0 {
+			n--
+			i += 2
+		} else {
+			i += 3
+		}
+	}
+
+	return n <= 0
+}
+
+// @leet end
+
