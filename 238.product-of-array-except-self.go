@@ -14,9 +14,9 @@ func productExceptSelf(nums []int) []int {
 	}
 
 	right := 1
-	for k := len(nums) - 1; k >= 0; k-- {
-		sumProducts[k] *= right
-		right *= nums[k]
+	for i := len(nums) - 1; i >= 0; i-- {
+		sumProducts[i] *= right
+		right *= nums[i]
 	}
 
 	return sumProducts
