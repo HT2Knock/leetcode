@@ -14,13 +14,13 @@ func closeStrings(word1 string, word2 string) bool {
 	m1, m2 := make(map[byte]int), make(map[byte]int)
 	for i := 0; i < len(word1); i++ {
 		m1[word1[i]]++
+		m2[word2[i]]++
 	}
-	for i := 0; i < len(word2); i++ {
-		if _, exist := m1[word2[i]]; !exist {
+
+	for char := range m1 {
+		if _, exists := m2[char]; !exists {
 			return false
 		}
-
-		m2[word2[i]]++
 	}
 
 	v1 := slices.Collect(maps.Values(m1))
