@@ -24,19 +24,16 @@ func sumDfs(node *TreeNode, prev map[int]int, sum, target int) int {
 
 	sum += node.Val
 
-	result := 0
-	if count, exist := prev[sum-target]; exist {
-		result += count
-	}
+	count := prev[sum-target]
 
 	prev[sum]++
 
-	left := sumDfs(node.Left, prev, sum, target)
-	right := sumDfs(node.Right, prev, sum, target)
+	count += sumDfs(node.Left, prev, sum, target)
+	count += sumDfs(node.Right, prev, sum, target)
 
 	prev[sum]--
 
-	return result + left + right
+	return count
 }
 
 // @leet end
