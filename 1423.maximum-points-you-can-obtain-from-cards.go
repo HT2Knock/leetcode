@@ -1,11 +1,13 @@
 package leetcode
 
-import "slices"
+import (
+	"slices"
+)
 
 // @leet start
 func maxScore(cardPoints []int, k int) int {
-	allowCards := slices.Concat(cardPoints[len(cardPoints)-k:], cardPoints[0:k])
-	maxSum, windowSum := 0, 0
+	allowCards := slices.Concat(cardPoints[len(cardPoints)-k:], cardPoints[:k])
+	maxSum, windowSum := allowCards[0], 0
 	start := 0
 
 	for end := 0; end < len(allowCards); end++ {
@@ -25,4 +27,3 @@ func maxScore(cardPoints []int, k int) int {
 }
 
 // @leet end
-
