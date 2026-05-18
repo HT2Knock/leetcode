@@ -10,30 +10,27 @@ package leetcode
  * }
  */
 func pathSum(root *TreeNode, targetSum int) [][]int {
-	paths := make([][]int, 0)
+	result := make([][]int, 0)
 
-	var dfs func(node *TreeNode, targetSum int, pathNodes []int)
-	dfs = func(node *TreeNode, targetSum int, pathNodes []int) {
+	var dfs func(node *TreeNode, targetSum int, path []int)
+	dfs = func(node *TreeNode, targetSum int, path []int) {
 		if node == nil {
 			return
 		}
 
-		pathNodes = append(pathNodes, node.Val)
-		currentSum := targetSum - node.Val
-		if node.Left == nil && node.Right == nil && currentSum == 0 {
-			// NOTE: go does slice sharing during recursion
-			temp := make([]int, len(pathNodes))
-			copy(temp, pathNodes)
-			paths = append(paths, temp)
+		path = append(path, node.Val)
+		remaining := targetSum - node.Val
+		if node.Left == nil && node.Right == nil && remaining == 0 {
+			result = append(result, append([]int{}, path...))
 			return
 		}
 
-		dfs(node.Left, currentSum, pathNodes)
-		dfs(node.Right, currentSum, pathNodes)
+		dfs(node.Left, remaining, path)
+		dfs(node.Right, remaining, path)
 	}
 
 	dfs(root, targetSum, []int{})
-	return paths
+	return result
 }
 
 // @leet end
