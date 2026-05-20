@@ -6,48 +6,44 @@ import (
 
 // @leet start
 func threeSum(nums []int) [][]int {
-	if len(nums) < 3 {
-		return [][]int{}
-	}
-
 	slices.Sort(nums)
-
-	result := [][]int{}
+	res := [][]int{}
 
 	for i := 0; i < len(nums)-2; i++ {
-		if i > 0 && nums[i-1] == nums[i] {
+		if i > 0 && nums[i] == nums[i-1] {
 			continue
 		}
 
-		if nums[i] > 0 {
-			break
-		}
+		left, right := i+1, len(nums)-1
 
-		j, k := i+1, len(nums)-1
-		for j < k {
-			sum := nums[i] + nums[j] + nums[k]
+		for left < right {
+			sum := nums[i] + nums[left] + nums[right]
 
-			if sum == 0 {
-				result = append(result, []int{nums[i], nums[j], nums[k]})
+			switch {
+			case sum < 0:
+				left++
 
-				for j < k && nums[j+1] == nums[j] {
-					j++
+			case sum > 0:
+				right--
+
+			default:
+				res = append(res, []int{nums[i], nums[left], nums[right]})
+
+				for left < right && nums[left] == nums[left+1] {
+					left++
 				}
-				for j < k && nums[k-1] == nums[k] {
-					k--
+
+				for left < right && nums[right] == nums[right-1] {
+					right--
 				}
-				j++
-				k--
-			} else if sum < 0 {
-				j++
-			} else {
-				k--
+
+				left++
+				right--
 			}
 		}
 	}
 
-	return result
+	return res
 }
 
 // @leet end
-
